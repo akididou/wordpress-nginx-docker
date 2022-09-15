@@ -1,5 +1,9 @@
 # How that work ?
 
+<p align="center">
+  <img src="https://github.com/akididou/wordpress-nginx-docker/blob/images/schema_2.jpg">
+</p>
+
 ![Schema Docker / Nginx / Wordpress](https://github.com/akididou/wordpress-nginx-docker/blob/images/schema.jpg?raw=true)
 
 # How to start ?
