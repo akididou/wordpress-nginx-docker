@@ -1,3 +1,7 @@
+# How that work ?
+
+![Schema Docker / Nginx / Wordpress](https://github.com/akididou/wordpress-nginx-docker/blob/images/schema.jpg?raw=true)
+
 # How to start ?
 
 ### 1. Change variables ###
