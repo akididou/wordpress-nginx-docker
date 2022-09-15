@@ -36,7 +36,10 @@ services:
       - ${NGINX_CONF:?err}:/etc/nginx/conf.d/default.conf
       - ${WORDPRESS_LOCAL_HOME:?err}/:/var/www/html
       - ${NGINX_LOGS:?err}/:/var/log/nginx/
+      - ${LETSENCRYPT1:?err}:${LETSENCRYPT1:?err}
+      - ${LETSENCRYPT2:?err}:${LETSENCRYPT2:?err}
+
     ports:
-      - 8080:80
+      - ${NGINX_PORT_443:?err}:443
     links:
       - wordpress
