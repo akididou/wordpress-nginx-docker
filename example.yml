@@ -1,9 +1,9 @@
 version: '3'
 services:
-  mysql:
+  mariadb:
     image: mariadb
     volumes:
-      - ${PATH_VOLUME:?err}/${PROJECT_FOLDER:?err}/mariadb/:/var/lib/mysql
+      - ${PATH_VOLUME:?err}/${PROJECT_FOLDER:?err}/mariadb/:/var/lib/mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
       MYSQL_DATABASE: ${WORDPRESS_DB_NAME:?err}
@@ -18,16 +18,16 @@ services:
       - ${PATH_YML:?err}/${PROJECT_FOLDER:?err}/uploads.ini/:/usr/local/etc/php/conf.d/uploads.ini
 
     depends_on:
-      - mysql
+      - mariadb
     environment:
-      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_HOST: mariadb
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:?err}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:?err}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:?err}
       WORDPRESS_TABLE_PREFIX: ${WORDPRESS_DB_PREFIX:?err}
     links:
-      - mysql
+      - mariadb
     restart: always
 
   nginx:
