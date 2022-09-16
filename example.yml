@@ -3,7 +3,7 @@ services:
   mysql:
     image: mariadb
     volumes:
-      - ${MYSQL_PATH:?err}/:/var/lib/mysql
+      - ${PATH_VOLUME:?err}/${PROJECT_FOLDER:?err}/mariadb/:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
       MYSQL_DATABASE: ${WORDPRESS_DB_NAME:?err}
@@ -14,8 +14,8 @@ services:
   wordpress:
     image: wordpress:php7.3-fpm-alpine
     volumes:
-      - ${WORDPRESS_LOCAL_HOME:?err}/:/var/www/html
-      - ${WORDPRESS_UPLOADS_CONFIG:?err}/:/usr/local/etc/php/conf.d/uploads.ini
+      - ${PATH_VOLUME:?err}/${PROJECT_FOLDER:?err}/wordpress/:/var/www/html
+      - ${PATH_YML:?err}/${PROJECT_FOLDER:?err}/uploads.ini/:/usr/local/etc/php/conf.d/uploads.ini
 
     depends_on:
       - mysql
@@ -33,11 +33,11 @@ services:
   nginx:
     image: nginx:alpine
     volumes:
-      - ${NGINX_CONF:?err}:/etc/nginx/conf.d/default.conf
-      - ${WORDPRESS_LOCAL_HOME:?err}/:/var/www/html
-      - ${NGINX_LOGS:?err}/:/var/log/nginx/
-      - ${LETSENCRYPT1:?err}:${LETSENCRYPT1:?err}
-      - ${LETSENCRYPT2:?err}:${LETSENCRYPT2:?err}
+      - ${PATH_YML:?err}/${PROJECT_FOLDER:?err}/default.conf:/etc/nginx/conf.d/default.conf
+      - ${PATH_VOLUME:?err}/${PROJECT_FOLDER:?err}/wordpress/:/var/www/html
+      - ${PATH_VOLUME:?err}/${PROJECT_FOLDER:?err}/logs/:/var/log/nginx/
+      - /etc/letsencrypt/live/${DOMAIN:?err}/fullchain.pem:/etc/letsencrypt/live/srec.deepstarr.ml/fullchain.pem
+      - /etc/letsencrypt/live/${DOMAIN:?err}/privkey.pem:/etc/letsencrypt/live/srec.deepstarr.ml/privkey.pem
 
     ports:
       - ${NGINX_PORT_443:?err}:443
