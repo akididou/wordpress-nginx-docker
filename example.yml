@@ -36,8 +36,8 @@ services:
       - ${PATH_YML:?err}/${PROJECT_FOLDER:?err}/default.conf:/etc/nginx/conf.d/default.conf
       - ${PATH_VOLUME:?err}/${PROJECT_FOLDER:?err}/wordpress/:/var/www/html
       - ${PATH_VOLUME:?err}/${PROJECT_FOLDER:?err}/logs/:/var/log/nginx/
-      - /etc/letsencrypt/live/${DOMAIN:?err}/fullchain.pem:/etc/letsencrypt/live/srec.deepstarr.ml/fullchain.pem
-      - /etc/letsencrypt/live/${DOMAIN:?err}/privkey.pem:/etc/letsencrypt/live/srec.deepstarr.ml/privkey.pem
+      - /etc/letsencrypt/live/${DOMAIN:?err}/fullchain.pem:/etc/letsencrypt/live/${DOMAIN:?err}/fullchain.pem
+      - /etc/letsencrypt/live/${DOMAIN:?err}/privkey.pem:/etc/letsencrypt/live/${DOMAIN:?err}/privkey.pem
 
     ports:
       - ${NGINX_PORT_443:?err}:443
